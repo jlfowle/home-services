@@ -6,7 +6,10 @@ COPY . .
 
 RUN go get -d -v
 
-RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/canary
+ARG GOOS=linux
+ARG GOARCH=amd64
+
+RUN GOOS=$GOOS GOARCH=$GOARCH go build -ldflags="-w -s" -o /go/bin/canary
 
 FROM scratch
 
