@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package canary;
+
+service Canary {
+    rpc Get (GetRequest) returns (GetReply) {}
+
+    rpc ServiceStatus (ServiceStatusRequest) returns (ServiceStatusReply) {}
+}
+
+message GetRequest {}
+
+message GetReply {
+    string Err = 1;
+}
+
+message ServiceStatusRequest {}
+
+message ServiceStatusReply {
+    int64 code = 1;
+    string err = 2;
+}
