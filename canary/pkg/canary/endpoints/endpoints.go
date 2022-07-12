@@ -14,7 +14,6 @@ import (
 type Set struct {
 	GetEndpoint           endpoint.Endpoint
 	ServiceStatusEndpoint endpoint.Endpoint
-	CanaryEndpoint        endpoint.Endpoint
 }
 
 func NewEndpointSet(svc canary.Service) Set {

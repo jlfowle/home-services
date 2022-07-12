@@ -9,8 +9,8 @@ import (
 	"github.com/jlfowle/home-services/canary/internal/util"
 	"github.com/jlfowle/home-services/canary/pkg/canary/endpoints"
 
-	"github.com/go-kit/kit/log"
 	httptransport "github.com/go-kit/kit/transport/http"
+	"github.com/go-kit/log"
 )
 
 func NewHTTPHandler(ep endpoints.Set) http.Handler {
@@ -33,7 +33,7 @@ func NewHTTPHandler(ep endpoints.Set) http.Handler {
 func decodeHTTPGetRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var req endpoints.GetRequest
 	if r.ContentLength == 0 {
-		logger.Log("msg", "Get request with no body")
+		_ = logger.Log("msg", "Get request with no body")
 		return req, nil
 	}
 	err := json.NewDecoder(r.Body).Decode(&req)
@@ -66,7 +66,7 @@ func encodeError(_ context.Context, err error, w http.ResponseWriter) {
 	default:
 		w.WriteHeader(http.StatusInternalServerError)
 	}
-	json.NewEncoder(w).Encode(map[string]interface{}{
+	_ = json.NewEncoder(w).Encode(map[string]interface{}{
 		"error": err.Error(),
 	})
 }
