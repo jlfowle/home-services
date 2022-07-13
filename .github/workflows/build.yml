@@ -32,6 +32,15 @@ jobs:
       working-directory: ${{ matrix.application }}
       run: go test -v ./... -coverprofile=cover.out
     
+    - name: Setup golangci-lint Action
+      uses: nickhstr/action-setup-golangci-lint@v0.1.0
+
+
+    - name:
+      working-directory: ${{ matrix.application }}
+      run: |
+        golangci-lint run --out-format checkstyle -D deadcode,unused --build-tags=integration --timeout 10m --issues-exit-code 0 ./... > lint-report.xml
+    
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       with:
