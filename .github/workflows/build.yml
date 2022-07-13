@@ -35,7 +35,7 @@ jobs:
     - name: Setup golangci-lint Action
       uses: nickhstr/action-setup-golangci-lint@v0.1.0
       with:
-        version: v1.46.2
+        version: 1.46.2
 
 
     - name:
@@ -44,7 +44,7 @@ jobs:
         golangci-lint run --out-format checkstyle -D deadcode,unused --build-tags=integration --timeout 10m --issues-exit-code 0 ./... | tee lint-report.xml
     
     - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
+      uses: SonarSource/sonarcloud-github-action@latest
       with:
         projectBaseDir: ${{ matrix.application }}
       env:
