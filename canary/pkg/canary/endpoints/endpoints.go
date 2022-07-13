@@ -8,7 +8,7 @@ import (
 	"github.com/jlfowle/home-services/canary/pkg/canary"
 
 	"github.com/go-kit/kit/endpoint"
-	"github.com/go-kit/kit/log"
+	"github.com/go-kit/log"
 )
 
 type Set struct {
