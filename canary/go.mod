@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/go-kit/kit v0.12.0
+	github.com/go-kit/log v0.2.0
 	github.com/golang/protobuf v1.5.2
 	github.com/oklog/oklog v0.3.2
 	github.com/onsi/ginkgo v1.16.5
@@ -13,7 +14,6 @@ require (
 
 require (
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
-	github.com/go-kit/log v0.2.0 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/oklog/run v1.1.0 // indirect
