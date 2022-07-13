@@ -31,16 +31,11 @@ jobs:
     - name: Test
       working-directory: ${{ matrix.application }}
       run: go test -v ./... -coverprofile=cover.out
-    
-    - name: Setup golangci-lint Action
-      uses: nickhstr/action-setup-golangci-lint@v0.1.0
-      with:
-        version: 1.46.2
-
 
     - name:
       working-directory: ${{ matrix.application }}
       run: |
+        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.1
         golangci-lint run --out-format checkstyle -D deadcode,unused --build-tags=integration --timeout 10m --issues-exit-code 0 ./... | tee lint-report.xml
     
     - name: SonarCloud Scan
