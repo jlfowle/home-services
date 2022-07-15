@@ -1,0 +1,24 @@
+name: 'Cleanup PR images'
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  purge-image:
+    permissions:
+      packages: delete,read
+    name: Delete image from ghcr.io
+    strategy:
+      matrix:
+        application: [canary]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete old images
+        uses: snok/container-retention-policy@v1
+        with:
+          image-names: ${{ github.repository }}-${{ matrix.application }}
+          filter-tags: pr-${{github.event.pull_request.number}}
+          cut-off: now
+          account-type: personal
+          token: ${{ secrets.GITHUB_TOKEN }}
