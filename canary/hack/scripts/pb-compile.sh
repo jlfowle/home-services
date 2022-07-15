@@ -12,9 +12,10 @@
 #  https://github.com/grpc/grpc-go/tree/master/examples
 
 REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
-PB_PATH="${REPO_ROOT}/api/v1/canary"
+PB_PATH="${REPO_ROOT}/api/v1"
 PROTO_FILE=${1:-"canarysvc.proto"}
 
 
 echo "Generating pb files for ${PROTO_FILE} service"
 protoc -I="${PB_PATH}"  "${PB_PATH}/${PROTO_FILE}" --go_out=plugins=grpc:"${PB_PATH}"
+#protoc -I="${PB_PATH}"  "${PB_PATH}/${PROTO_FILE}" --go-grpc_out="${PB_PATH}"

@@ -55,8 +55,8 @@ func decodeGRPCServiceStatusRequest(_ context.Context, grpcReq interface{}) (int
 }
 
 func decodeGRPCGetResponse(_ context.Context, grpcReply interface{}) (interface{}, error) {
-	reply := grpcReply.(*canary.GetReply)
-	return endpoints.GetResponse{Err: reply.Err}, nil
+	_ = grpcReply.(*canary.GetReply)
+	return endpoints.GetResponse{}, nil
 }
 
 func decodeGRPCServiceStatusResponse(ctx context.Context, grpcReply interface{}) (interface{}, error) {

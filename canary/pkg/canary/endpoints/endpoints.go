@@ -27,9 +27,9 @@ func MakeGetEndpoint(svc canary.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		err := svc.Get(ctx)
 		if err != nil {
-			return GetResponse{err.Error()}, nil
+			return GetResponse{}, nil
 		}
-		return GetResponse{""}, nil
+		return GetResponse{}, nil
 	}
 }
 
@@ -49,10 +49,7 @@ func (s *Set) Get(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	getResp := resp.(GetResponse)
-	if getResp.Err != "" {
-		return errors.New(getResp.Err)
-	}
+	_ = resp.(GetResponse)
 	return nil
 }
 

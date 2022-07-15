@@ -1,18 +1,17 @@
 syntax = "proto3";
 
+option go_package = "./canary";
+
 package canary;
 
 service Canary {
     rpc Get (GetRequest) returns (GetReply) {}
-
     rpc ServiceStatus (ServiceStatusRequest) returns (ServiceStatusReply) {}
 }
 
 message GetRequest {}
 
-message GetReply {
-    string Err = 1;
-}
+message GetReply {}
 
 message ServiceStatusRequest {}
 

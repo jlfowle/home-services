@@ -2,9 +2,7 @@ package endpoints
 
 type GetRequest struct{}
 
-type GetResponse struct {
-	Err string `json:"err,omitempty"`
-}
+type GetResponse struct{}
 
 type ServiceStatusRequest struct{}
 
