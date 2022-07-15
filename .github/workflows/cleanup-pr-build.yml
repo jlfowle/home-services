@@ -7,7 +7,7 @@ on:
 jobs:
   purge-image:
     permissions:
-      packages: delete,read
+      packages: read|write
     name: Delete image from ghcr.io
     strategy:
       matrix:
@@ -21,4 +21,4 @@ jobs:
           filter-tags: pr-${{github.event.pull_request.number}}
           cut-off: now
           account-type: personal
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PACKAGE_CLEANUP_TOKEN }}
