@@ -15,7 +15,7 @@ jobs:
       - name: Delete old images
         uses: snok/container-retention-policy@v1
         with:
-          image-names: ${{ github.repository }}-${{ matrix.application }}
+          image-names: home-services-${{ matrix.application }}
           filter-tags: pr-${{github.event.pull_request.number}}
           cut-off: now UTC
           account-type: personal
