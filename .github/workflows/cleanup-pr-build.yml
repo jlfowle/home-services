@@ -17,6 +17,6 @@ jobs:
         with:
           image-names: ${{ github.repository }}-${{ matrix.application }}
           filter-tags: pr-${{github.event.pull_request.number}}
-          cut-off: now
+          cut-off: now UTC
           account-type: personal
           token: ${{ secrets.PACKAGE_CLEANUP_TOKEN }}
