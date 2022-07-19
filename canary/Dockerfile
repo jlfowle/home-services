@@ -1,15 +1,14 @@
-FROM golang:alpine AS builder
+FROM golang:1.18-bullseye AS builder
 
-RUN apk update && apk add --no-cache git
 WORKDIR $GOPATH/src/github.com/jlfowle/home-services/canary/
 COPY . .
 
-RUN go get -d -v
+RUN go mod download
 
 ARG GOOS=linux
 ARG GOARCH=amd64
 
-RUN GOOS=$GOOS GOARCH=$GOARCH go build -ldflags="-w -s" -o /go/bin/canary
+RUN CGO_ENABLED=0 GOOS=$GOOS GOARCH=$GOARCH go build -o /go/bin/canary cmd/canary/canary.go
 
 FROM scratch
 
