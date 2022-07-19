@@ -6,8 +6,6 @@ on:
 
 jobs:
   purge-image:
-    permissions:
-      packages: read|write
     name: Delete image from ghcr.io
     strategy:
       matrix:
