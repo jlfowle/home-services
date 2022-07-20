@@ -21,7 +21,7 @@ func NewHTTPHandler(ep endpoints.Set) http.Handler {
 		decodeHTTPServiceStatusRequest,
 		encodeResponse,
 	))
-	m.Handle("/get", httptransport.NewServer(
+	m.Handle("/", httptransport.NewServer(
 		ep.GetEndpoint,
 		decodeHTTPGetRequest,
 		encodeResponse,
@@ -32,14 +32,6 @@ func NewHTTPHandler(ep endpoints.Set) http.Handler {
 
 func decodeHTTPGetRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var req endpoints.GetRequest
-	if r.ContentLength == 0 {
-		_ = logger.Log("msg", "Get request with no body")
-		return req, nil
-	}
-	err := json.NewDecoder(r.Body).Decode(&req)
-	if err != nil {
-		return nil, err
-	}
 	return req, nil
 }
 
