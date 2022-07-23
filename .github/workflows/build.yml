@@ -32,15 +32,11 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Build
-      working-directory: ${{ matrix.application }}
-      run: go build -v ./...
-
     - name: Test
       working-directory: ${{ matrix.application }}
       run: go test -v ./... -coverprofile=cover.out
 
-    - name:
+    - name: Golangci Lint
       working-directory: ${{ matrix.application }}
       run: |
         curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.1
