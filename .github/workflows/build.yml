@@ -15,7 +15,7 @@ jobs:
       matrix:
         go-version: [1.18.x]
         os: [ubuntu-latest]
-        application: [canary]
+        application: [canary, zilch]
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}-${{ matrix.application }}
