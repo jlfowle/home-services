@@ -9,7 +9,7 @@ jobs:
     name: Delete image from ghcr.io
     strategy:
       matrix:
-        application: [canary]
+        application: [canary, zilch]
     runs-on: ubuntu-latest
     steps:
       - name: Delete old images
