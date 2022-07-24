@@ -1,4 +1,4 @@
-package endpoints_test
+package logging_test
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestEndpoints(t *testing.T) {
+func TestLogging(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Endpoints Suite")
+	RunSpecs(t, "Logging Suite")
 }

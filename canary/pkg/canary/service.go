@@ -1,11 +1,24 @@
 package canary
 
 import (
-	"context"
+	"net/http"
 )
 
-type Service interface {
-	// Get the list of all documents
-	Get(ctx context.Context) error
-	ServiceStatus(ctx context.Context) (int, error)
+type CanaryService interface {
+	GetServiceHealth() (int, error)
+	GetServiceReadiness() (int, error)
+}
+
+func NewCanaryService() CanaryService {
+	return &canaryService{}
+}
+
+type canaryService struct{}
+
+func (canaryService) GetServiceHealth() (int, error) {
+	return http.StatusOK, nil
+}
+
+func (canaryService) GetServiceReadiness() (int, error) {
+	return http.StatusOK, nil
 }

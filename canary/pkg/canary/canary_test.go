@@ -1,32 +1,28 @@
 package canary_test
 
 import (
-	"context"
-
-	"net/http"
-
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
 	"github.com/jlfowle/home-services/canary/pkg/canary"
 )
 
-var ctx context.Context
-var _ = Describe("Canary", func() {
-	var _ = BeforeEach(func() {
-		ctx = context.TODO()
+var (
+	svc canary.CanaryService
+)
+
+var _ = Describe("Canary Service", func() {
+	BeforeEach(func() {
+		svc = canary.NewCanaryService()
 	})
-	Describe("Get", func() {
-		It("Is successful", func() {
-			err := canary.NewService().Get(ctx)
-			Expect(err).ToNot(HaveOccurred())
-		})
+	It("should be healthy", func() {
+		resp, err := svc.GetServiceHealth()
+		Expect(err).ToNot(HaveOccurred())
+		Expect(resp).To(BeEquivalentTo(200))
 	})
-	Describe("Service Status", func() {
-		It("Is successful", func() {
-			status, err := canary.NewService().ServiceStatus(ctx)
-			Expect(err).ToNot(HaveOccurred())
-			Expect(status).To(Equal(http.StatusOK))
-		})
+	It("should be ready", func() {
+		resp, err := svc.GetServiceReadiness()
+		Expect(err).ToNot(HaveOccurred())
+		Expect(resp).To(BeEquivalentTo(200))
 	})
 })
