@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "zilch"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "canary"
+		},
+		{
+			"path": "service-kit"
+		}
+	],
+	"settings": {}
+}

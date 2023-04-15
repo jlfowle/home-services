@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option go_package = "github.com/unnamed/home-services/canary/api/v1/canary;canary";
+package canary;
+
+import "google/protobuf/empty.proto";
+
+// Canary service definition
+service CanaryService {
+    // Sends a health response
+    rpc Health(google.protobuf.Empty) returns(HealthReply) {}
+
+    // Replies Pong
+    rpc Ping(google.protobuf.Empty) returns (PingReply) {}
+}
+
+message PingReply {
+    string output = 1;
+}
+
+message HealthReply {
+    int64 code = 1;
+    string err = 2;
+}
