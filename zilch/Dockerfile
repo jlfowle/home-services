@@ -1,4 +1,4 @@
-FROM golang:1.18-bullseye AS builder
+FROM golang:1.20-bullseye AS builder
 
 WORKDIR $GOPATH/src/github.com/jlfowle/home-services/zilch/
 COPY . .

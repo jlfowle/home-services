@@ -13,9 +13,13 @@ jobs:
       packages: write
     strategy:
       matrix:
-        go-version: [1.18.x]
+        go-version: [1.20.x]
         os: [ubuntu-latest]
-        application: [canary, zilch]
+        application: [canary, zilch, service-kit]
+        include:
+          - application: service-kit
+            package: false
+          - package: true
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}-${{ matrix.application }}
@@ -52,6 +56,7 @@ jobs:
     
     - name: Log in to the Container registry
       uses: docker/login-action@v2.0.0
+      if: ${{ matrix.package }}
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
@@ -60,6 +65,7 @@ jobs:
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@v4.0.1
+      if: ${{ matrix.package }}
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         tags: |
@@ -70,6 +76,7 @@ jobs:
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v4.0.0
+      if: ${{ matrix.package }}
       with:
         context: ${{ matrix.application }}
         push: true

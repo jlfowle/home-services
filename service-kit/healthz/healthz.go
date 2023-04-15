@@ -1,5 +1,7 @@
 package healthz
 
+import "fmt"
+
 type Test interface {
 	Run() error
 }
@@ -10,20 +12,20 @@ type Check struct {
 }
 
 type HealthService interface {
-	GetHealth() error
-	GetReady() error
-	GetLive() error
+	GetHealth() *Report
+	GetReady() *Report
+	GetLive() *Report
 }
 
 type Report struct {
-	TestResults []Result `json:"testResults,omitempty"`
+	TestResults []*Result `json:"testResults,omitempty"`
 	Healthy     bool     `json:"healthy"`
 }
 
 type Result struct {
 	Name string `json:"name"`
 	Pass bool   `json:"pass"`
-	Message string `json:"message,omitempty"`
+	Err error `json:"err,omitempty"`
 }
 
 func NewHealthService(readyChecks, liveChecks []Check) HealthService {
@@ -38,22 +40,21 @@ type healthService struct {
 	liveChecks  []Check
 }
 
-func (h *healthService) GetHealth() Report {
-	return runChecks(h.liveChecks..., h.readyChecks...)
+func (h *healthService) GetHealth() *Report {
+	return runChecks(append(h.liveChecks, h.readyChecks...))
 }
 
-func (healthService) GetReady() Report {
-	return runChecks(h.readyChecks...)
+func (h *healthService) GetReady() *Report {
+	return runChecks(h.readyChecks)
 }
 
-func (healthService) GetLive() Report {
-	return runChecks(h.liveChecks...)
+func (h *healthService) GetLive() *Report {
+	return runChecks(h.liveChecks)
 }
 
-func runChecks(checks []Check) Report {
-	results := []Result{}
+func runChecks(checks []Check) *Report {
+	results := []*Result{}
 	report := &Report{
-		TestResults: results,
 		Healthy: true,
 	}
 	for _, c := range checks {
@@ -62,11 +63,12 @@ func runChecks(checks []Check) Report {
 			Pass: true,
 		}
 		if err := c.Test.Run();err != nil {
-			res.Message = err.Error()
+			res.Err = fmt.Errorf("test error: %w", err)
 			res.Pass = false
 			report.Healthy = false
 		}
 		results = append(results, res)
 	}
+	report.TestResults = results
 	return report
 }
