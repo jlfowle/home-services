@@ -17,9 +17,9 @@ jobs:
         os: [ubuntu-latest]
         application: [canary, zilch, service-kit]
         include:
+          - package: true
           - application: service-kit
             package: false
-          - package: true
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}-${{ matrix.application }}
@@ -56,7 +56,7 @@ jobs:
     
     - name: Log in to the Container registry
       uses: docker/login-action@v2.1.0
-      if: matrix.package
+      if: ${{ matrix.application == true }}
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
@@ -65,7 +65,7 @@ jobs:
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@v4.3.0
-      if: matrix.package
+      if: ${{ matrix.application == true }}
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         tags: |
@@ -76,7 +76,7 @@ jobs:
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v4.0.0
-      if: matrix.package
+      if: ${{ matrix.application == true }}
       with:
         context: ${{ matrix.application }}
         push: true
