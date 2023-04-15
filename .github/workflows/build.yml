@@ -43,7 +43,7 @@ jobs:
         golangci-lint run --out-format checkstyle -D deadcode,unused --build-tags=integration --timeout 10m --issues-exit-code 0 ./... | tee lint-report.xml
     
     - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v1.6
+      uses: SonarSource/sonarcloud-github-action@v1.9
       with:
         projectBaseDir: ${{ matrix.application }}
       env:
