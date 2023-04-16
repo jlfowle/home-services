@@ -3,7 +3,7 @@ package logging_test
 import (
 	"github.com/go-kit/kit/log"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
 	"github.com/jlfowle/home-services/canary/internal/logging"

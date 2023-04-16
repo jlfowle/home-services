@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/jlfowle/home-services/zilch/internal/endpoints"
 	"github.com/jlfowle/home-services/zilch/internal/instrumenting"
 	"github.com/jlfowle/home-services/zilch/internal/logging"
 	"github.com/jlfowle/home-services/zilch/internal/transport"
@@ -37,7 +38,8 @@ func main() {
 	svc = logging.NewLoggingMiddleware(logger, svc)
 	svc = instrumenting.NewInstrumentingMiddleware(requestCount, requestLatency, svc)
 
-	getHandler := transport.MakeGetEndpointHandler(svc)
+	eps := endpoints.NewEndpointSet(svc)
+	getHandler := transport.MakeGetEndpointHandler(eps)
 
 	http.Handle("/", getHandler)
 	http.Handle("/metrics", promhttp.Handler())

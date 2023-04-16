@@ -7,22 +7,15 @@ import (
 
 	httptransport "github.com/go-kit/kit/transport/http"
 
-	"github.com/go-kit/kit/endpoint"
-	"github.com/jlfowle/home-services/zilch/pkg/zilch"
+	"github.com/jlfowle/home-services/zilch/internal/endpoints"
 )
 
-func MakeGetEndpointHandler(svc zilch.ZilchService) httptransport.Server {
+func MakeGetEndpointHandler(eps endpoints.Set) httptransport.Server {
 	return *httptransport.NewServer(
-		makeGetEndpoint(svc),
+		eps.GetEndpoint(),
 		decodeGetRequest,
 		encodeGetResponse,
 	)
-}
-
-func makeGetEndpoint(svc zilch.ZilchService) endpoint.Endpoint {
-	return func(_ context.Context, request interface{}) (interface{}, error) {
-		return getResponse{}, svc.Get()
-	}
 }
 
 func decodeGetRequest(_ context.Context, r *http.Request) (interface{}, error) {
