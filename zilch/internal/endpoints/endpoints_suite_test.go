@@ -1,4 +1,4 @@
-package canary_test
+package endpoints_test
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestCanary(t *testing.T) {
+func TestEndpoints(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Canary Suite")
+	RunSpecs(t, "Endpoints Suite")
 }

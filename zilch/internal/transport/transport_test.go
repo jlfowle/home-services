@@ -1,9 +1,11 @@
 package transport_test
 
 import (
+	"context"
 	"net/http"
 
-	. "github.com/onsi/ginkgo"
+	"github.com/go-kit/kit/endpoint"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/ghttp"
 
@@ -16,13 +18,20 @@ func (s dummyService) Get() error {
 	return nil
 }
 
+type mockSet struct{}
+
+func (s *mockSet) GetEndpoint() endpoint.Endpoint {
+	return func(_ context.Context, _ interface{}) (interface{}, error) {
+		return nil, nil
+	}
+}
+
 var _ = Describe("Transport", func() {
 	var server *ghttp.Server
 	BeforeEach(func() {
 		// start a test http server
-		svc := &dummyService{}
+		handler := transport.MakeGetEndpointHandler(&mockSet{})
 		server = ghttp.NewServer()
-		handler := transport.MakeGetEndpointHandler(svc)
 		server.AppendHandlers(
 			http.HandlerFunc(handler.ServeHTTP),
 		)
