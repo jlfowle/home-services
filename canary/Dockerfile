@@ -14,6 +14,8 @@ FROM scratch
 
 COPY --from=builder /go/bin/canary /go/bin/canary
 
+USER 1001
+
 EXPOSE 8081/tcp
 
 ENTRYPOINT ["/go/bin/canary"]
