@@ -1,17 +1,41 @@
 {
 	"folders": [
 		{
-			"path": "zilch"
+			"name": "Github Configuration",
+			"path": ".github"
 		},
 		{
-			"path": "."
-		},
-		{
+			"name": "Canary",
 			"path": "canary"
 		},
 		{
+			"name": "Zilch",
+			"path": "zilch"
+		},
+		{
+			"name": "Service Kit",
 			"path": "service-kit"
-		}
+		},
+		{
+			"name": "WebUI Router",
+			"path": "webui-router"
+		},
+		{
+			"name": "WebUI Styleguide",
+			"path": "webui-styleguide"
+		},
+		{
+			"name": "WebUI Navigation",
+			"path": "webui-nav"
+		},
+		{
+			"name": "WebUI Welcome",
+			"path": "webui-welcome"
+		},
+		{
+			"name": "__root__",
+			"path": "."
+		},
 	],
 	"settings": {}
 }
