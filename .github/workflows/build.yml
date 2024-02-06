@@ -47,7 +47,7 @@ jobs:
         golangci-lint run --out-format checkstyle -D deadcode,unused --build-tags=integration --timeout 10m --issues-exit-code 0 ./... | tee lint-report.xml
     
     - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v1.9
+      uses: SonarSource/sonarcloud-github-action@v2.1.1
       with:
         projectBaseDir: ${{ matrix.application }}
       env:
@@ -55,7 +55,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
     - name: Log in to the Container registry
-      uses: docker/login-action@v2.1.0
+      uses: docker/login-action@v2.2.0
       if: ${{ matrix.application == true }}
       with:
         registry: ${{ env.REGISTRY }}
@@ -64,7 +64,7 @@ jobs:
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
-      uses: docker/metadata-action@v4.3.0
+      uses: docker/metadata-action@v4.6.0
       if: ${{ matrix.application == true }}
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
